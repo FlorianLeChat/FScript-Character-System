@@ -7,6 +7,4 @@ assignees: ''
 
 ---
 
-[//]: # Please do not delete this template. Warning: this is for suggestions only.
-
-### Details
+### Description
