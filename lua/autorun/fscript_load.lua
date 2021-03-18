@@ -9,7 +9,7 @@ FScript.Info = FScript.Info or {}
 FScript.Info.Version = "4"
 FScript.Info.Revision = "2"
 FScript.Info.InitialDate = "27/01/2018"
-FScript.Info.UpdateDate = "07/09/2020"
+FScript.Info.UpdateDate = "18/03/2021"
 
 local rootFolder = "fscript_modules/"
 local _, folders = file.Find(rootFolder .. "*", "LUA")
