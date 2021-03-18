@@ -273,6 +273,10 @@ hook.Run("FScript.OnLoadScriptTranslations")
 -- If the script does not find a translation in your language, then it will use the English language.
 -- We also check if the translation in the chosen language is complete.
 local LanguageCode = string.upper(FScript.Config.Language)
+if #LanguageCode ~= 2 then
+	LanguageCode = "EN"
+end
+
 local DefaultLanguage = FScript.Lang["EN"]
 local SelectedLanguage = FScript.Lang[LanguageCode]
 
