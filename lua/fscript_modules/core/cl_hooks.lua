@@ -4,7 +4,7 @@
 hook.Add("FScript.CanOpenPlayerMenu", "FScript.PlayerMenuRestrictions", function(ply, name)
 	if FScript.Config.CommandMenuKey == KEY_F2 and name == "ChatCommands" then
 		local EntityTrace = ply:GetEyeTrace().Entity
-		if EntityTrace:isKeysOwnable() and EntityTrace.HitPos:DistToSqr(EntityTrace:GetPos()) <= 40000 then
+		if IsValid(EntityTrace) and EntityTrace:isKeysOwnable() and EntityTrace.HitPos:DistToSqr(EntityTrace:GetPos()) <= 40000 then
 			return false
 		end
 	end
