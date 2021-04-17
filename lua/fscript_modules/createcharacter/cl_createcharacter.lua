@@ -329,7 +329,7 @@ net.Receive("FScript.CreateCharacter.OpenMenu", function()
 		self:Remove()
 
 		local ProgressBar = vgui.Create("DProgress", DermaFrame)
-		ProgressBar:SetSize(480, 25)
+		ProgressBar:SetSize(DermaFrame:GetWide() - 20, 25)
 		ProgressBar:SetPos((DermaFrame:GetWide() - ConfirmButton:GetWide()) / 2, DermaFrame:GetTall() - 65)
 		ProgressBar:SetFraction(0)
 
