@@ -94,9 +94,11 @@ net.Receive("FScript.EditCharacterInformations.Validate", function(lenght, ply)
 
 	Target:SetHasCharacterLoaded(false)
 
-	if DarkRP then
-		if RPName ~= Target:Nick() then
+	if RPName ~= Target:Nick() then
+		if DarkRP then
 			Target:setRPName(RPName)
+		else
+			Target:SetNWString("FScript.CharacterName", RPName)
 		end
 	end
 

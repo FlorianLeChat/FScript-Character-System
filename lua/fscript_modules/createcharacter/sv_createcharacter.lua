@@ -52,10 +52,12 @@ net.Receive("FScript.CreateCharacter.Validate", function(lenght, ply)
 	Firstname = string.upper(Firstname[1]) .. string.lower(string.sub(Firstname, 2))
 	Surname = string.upper(Surname[1]) .. string.lower(string.sub(Surname, 2))
 
-	if DarkRP then
-		local RPName = Firstname .. " " .. Surname
-		if RPName ~= ply:Nick() then
+	local RPName = Firstname .. " " .. Surname
+	if RPName ~= ply:Nick() then
+		if DarkRP then
 			ply:setRPName(RPName)
+		else
+			ply:SetNWString("FScript.CharacterName", RPName)
 		end
 	end
 
