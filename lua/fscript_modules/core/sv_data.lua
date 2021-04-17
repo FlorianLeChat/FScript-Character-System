@@ -171,6 +171,11 @@ function FScript.LoadCharacter(ply, characterNumber)
 		if ArrestedCharacter then
 			ply:arrest(tonumber(CharacterData["JailTime"]), ply)
 		end
+	else
+		local CharacterName = CharacterData["Name"]
+		if ply:Nick() ~= CharacterName then
+			ply:SetNWString("FScript.CharacterName", CharacterName)
+		end
 	end
 
 	if itemstore then
