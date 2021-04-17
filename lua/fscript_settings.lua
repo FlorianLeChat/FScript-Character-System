@@ -25,7 +25,7 @@ FScript.Config.ScriptPrefix = "[FScript] "
 -- Here is the official list of default fonts in Garry's Mod: https://wiki.facepunch.com/gmod/Default_Fonts
 FScript.Config.TitleFont = "DermaLarge"
 FScript.Config.SubTitleFont = "Trebuchet24"
-FScript.Config.TextFont = "Trebuchet18"
+FScript.Config.TextFont = "DermaDefault"
 
 -- The language used by the script.
 -- By default it uses the server language, but you can change it to your own if you have added new translations in the "fscript_translations.lua" file.
