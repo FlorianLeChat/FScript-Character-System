@@ -139,8 +139,8 @@ end
 	Return: None
 --]]
 function FScript.RemoveCharacter(target, steamID64, charNumber)
-	local steamID64 = steamID64 or target:SteamID64()
-	local charNumber = charNumber or target:GetCharacterNumber()
+	steamID64 = steamID64 or target:SteamID64()
+	charNumber = charNumber or target:GetCharacterNumber()
 
 	file.Delete("fscript_data/players/" .. steamID64 .. "/" .. charNumber .. ".json")
 
@@ -160,7 +160,7 @@ end
 	Return: None
 --]]
 function FScript.RemoveAllCharacters(target, steamID64)
-	local steamID64 = steamID64 or target:SteamID64()
+	steamID64 = steamID64 or target:SteamID64()
 
 	for _, v in ipairs(file.Find("fscript_data/players/" .. steamID64 .. "/*", "DATA")) do
 		file.Delete("fscript_data/players/" .. steamID64 .. "/" .. v)

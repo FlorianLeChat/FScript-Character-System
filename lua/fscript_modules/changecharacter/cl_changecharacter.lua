@@ -81,13 +81,15 @@ net.Receive("FScript.ChangeCharacter.OpenMenu", function(len)
 	SubTitle:SizeToContents()
 	SubTitle:SetPos((DermaFrame:GetWide() - SubTitle:GetWide()) / 2, 70)
 
-	local SubTitlePos = SubTitle:GetPos()
-	local SubTitleWide = SubTitle:GetWide()
-	local DermaFrameWide = DermaFrame:GetWide()
-	if SubTitlePos + SubTitleWide >= (DermaFrameWide - 40) then
-		local _, Y = SubTitle:GetSize()
-		SubTitle:SetPos(20, 70)
-		SubTitle:SetSize(DermaFrameWide - 40, Y)
+	do
+		local SubTitlePos = SubTitle:GetPos()
+		local SubTitleWide = SubTitle:GetWide()
+		local DermaFrameWide = DermaFrame:GetWide()
+		if SubTitlePos + SubTitleWide >= (DermaFrameWide - 40) then
+			local _, Y = SubTitle:GetSize()
+			SubTitle:SetPos(20, 70)
+			SubTitle:SetSize(DermaFrameWide - 40, Y)
+		end
 	end
 
 	local AllCharacters = vgui.Create("DLabel", DermaFrame)
