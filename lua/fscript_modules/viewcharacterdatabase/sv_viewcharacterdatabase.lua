@@ -116,9 +116,9 @@ net.Receive("FScript.ViewCharacterDatabase.Validate", function(lenght, ply)
 	if Action == "ViewCharacterInformations" then
 		FScript.ViewCharacterInformations(ply, SteamID64, CharacterNumber)
 	elseif Action == "EditCharacterInformations" then
-		FScript.EditCharacter(ply, SteamID64, CharacterNumber)
+		FScript.EditCharacterInformations(ply, SteamID64, CharacterNumber)
 	elseif Action == "EditCharacterNotes" then
-		FScript.ViewCharacterNotes(ply, SteamID64, CharacterNumber)
+		FScript.EditCharacterNotes(ply, SteamID64, CharacterNumber)
 	elseif Action == "DeleteCharacter" then
 		FScript.RemoveCharacter(ply, SteamID64, CharacterNumber)
 		FScript.SendNotification(ply, 3, FScript.Lang.SingleDeleteSuccess)
