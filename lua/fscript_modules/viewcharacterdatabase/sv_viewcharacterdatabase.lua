@@ -14,33 +14,34 @@ util.AddNetworkString("FScript.ViewCharacterDatabase.SendServerData")
 	- [4] = Player SteamID64,
 	- [5] = Character number
 --]]
-local function SteamIDSearching(value)
+local function SteamIDSearching(value, callback)
 	if string.StartWith(value, "STEAM_") then
 		value = util.SteamIDTo64(value)
 	end
 
 	local Characters = file.Find("fscript_data/players/" .. value .. "/*", "DATA")
 	if #Characters > 0 then
-		local CharactersData = {}
+		local result = {}
 
 		for i = 1, #Characters do
-			local Character = file.Read("fscript_data/players/" .. value .. "/" .. i .. ".json")
-			if not FScript.IsValidString(Character) then
-				return
-			end
+			file.AsyncRead("fscript_data/players/" .. value .. "/" .. i .. ".json", "DATA", function(fileName, gamePath, status, data)
+				if FScript.IsValidString(data) and status == FSASYNC_OK then
+					data = util.JSONToTable(data)
 
-			Character = util.JSONToTable(Character)
+					result[#result + 1] = {
+						data["Name"],
+						data["ID"],
+						#data["Description"] > 75 and string.sub(data["Description"], 0, 75) .. "..." or data["Description"],
+						value,
+						i,
+					}
 
-			CharactersData[i] = {
-				Character["Name"],
-				Character["ID"],
-				#Character["Description"] > 75 and string.sub(Character["Description"], 0, 75) .. "..." or Character["Description"],
-				value,
-				i,
-			}
+					if #Characters == #result then
+						callback(result)
+					end
+				end
+			end)
 		end
-
-		return CharactersData
 	end
 end
 
@@ -56,31 +57,32 @@ end
 	- [4] = Player SteamID64,
 	- [5] = Character number
 --]]
-local function StringSearching(type, value)
+local function StringSearching(type, value, callback)
 	local _, Folders = file.Find("fscript_data/players/*", "DATA")
 	for _, v1 in ipairs(Folders) do
 		local Files = file.Find("fscript_data/players/" .. v1 .. "/*", "DATA")
 		for _, v2 in ipairs(Files) do
-			local Character = file.Read("fscript_data/players/" .. v1 .. "/" .. v2)
-			if not FScript.IsValidString(Character) then
-				return
-			end
+			file.AsyncRead("fscript_data/players/" .. v1 .. "/" .. v2, "DATA", function(fileName, gamePath, status, data)
+				if FScript.IsValidString(data) and status == FSASYNC_OK then
+					data = util.JSONToTable(data)
 
-			Character = util.JSONToTable(Character)
+					if string.find(string.lower(data[type]), string.lower(value)) then
+						v2 = string.Replace(v2, ".json", "")
 
-			if string.find(string.lower(Character[type]), string.lower(value)) then
-				v2 = string.Replace(v2, ".json", "")
+						callback({
+							{
+								data["Name"],
+								data["ID"],
+								#data["Description"] > 75 and string.sub(data["Description"], 0, 75) .. "..." or data["Description"],
+								v1,
+								v2,
+							}
+						})
 
-				return {
-					[1] = {
-						Character["Name"],
-						Character["ID"],
-						#Character["Description"] > 75 and string.sub(Character["Description"], 0, 75) .. "..." or Character["Description"],
-						v1,
-						v2,
-					}
-				}
-			end
+						return
+					end
+				end
+			end)
 		end
 	end
 end
@@ -149,21 +151,23 @@ net.Receive("FScript.ViewCharacterDatabase.RequestServerData", function(lenght, 
 
 		local Type = Data[1]
 		if Type == "SteamID" or Type == "List" then
-			local Search = SteamIDSearching(Search)
-			if Search then
-				net.Start("FScript.ViewCharacterDatabase.SendServerData")
-					net.WriteTable(Search)
-					FScript.ValidateNetworkMessage(ply)
-				net.Send(ply)
-			end
+			SteamIDSearching(Search, function(data)
+				if data then
+					net.Start("FScript.ViewCharacterDatabase.SendServerData")
+						net.WriteTable(data)
+						FScript.ValidateNetworkMessage(ply)
+					net.Send(ply)
+				end
+			end)
 		elseif Type == "Name" or Type == "ID" or Type == "Description" then
-			local Search = StringSearching(Type, Search)
-			if Search then
-				net.Start("FScript.ViewCharacterDatabase.SendServerData")
-					net.WriteTable(Search)
-					FScript.ValidateNetworkMessage(ply)
-				net.Send(ply)
-			end
+			StringSearching(Type, Search, function(data)
+				if data then
+					net.Start("FScript.ViewCharacterDatabase.SendServerData")
+						net.WriteTable(data)
+						FScript.ValidateNetworkMessage(ply)
+					net.Send(ply)
+				end
+			end)
 		end
 	end
 end)
