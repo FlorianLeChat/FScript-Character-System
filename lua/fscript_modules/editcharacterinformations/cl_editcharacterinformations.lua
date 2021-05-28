@@ -348,17 +348,17 @@ net.Receive("FScript.EditCharacterInformations.OpenMenu", function()
 		ValidationText:SetColor(FScript.Config.GreenColor)
 		ValidationIcon:SetImage("icon16/accept.png")
 
-		local CharacterData = {}
-		CharacterData[1] = Firstname
-		CharacterData[2] = Surname
-		CharacterData[3] = ID
-		CharacterData[4] = Description
-		CharacterData[5] = PlayerModel
+		local data = {}
+		data[1] = Firstname
+		data[2] = Surname
+		data[3] = ID
+		data[4] = Description
+		data[5] = PlayerModel
 
 		surface.PlaySound(FScript.Config.ClickSound)
 
 		net.Start("FScript.EditCharacterInformations.Validate")
-			net.WriteTable(CharacterData)
+			net.WriteTable(data)
 			FScript.ValidateNetworkMessage()
 		net.SendToServer()
 
