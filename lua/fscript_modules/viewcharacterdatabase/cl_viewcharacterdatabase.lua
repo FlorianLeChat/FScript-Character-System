@@ -273,6 +273,8 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 		for k, v in ipairs(ServerData) do
 			SearchList:AddLine(v[1], v[2], v[3])
 			SearchList.OnRowSelected = function(list, index, panel)
+				local data = ServerData[index]
+
 				surface.PlaySound(FScript.Config.ClickSound)
 
 				Derma_Query(FScript.Lang.CharacterRequest, FScript.Lang.Warning,
@@ -280,25 +282,25 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 						DermaFrame:Close()
 
 						net.Start("FScript.ViewCharacterDatabase.Validate")
-							net.WriteTable({"ViewCharacterInformations", v[4], v[5]})
+							net.WriteTable({"ViewCharacterInformations", data[4], data[5]})
 						net.SendToServer()
 					end,
 
-					FScript.Lang.EditCharacterValidation, function()
+					FScript.Lang.EditCharacterInformationsValidation, function()
 						Derma_Query(FScript.Lang.ViewDatabaseCharacterEdition, FScript.Lang.Warning,
-							FScript.Lang.ViewCharacterInformations, function()
+							FScript.Lang.EditCharacterInformations, function()
 								DermaFrame:Close()
 
 								net.Start("FScript.ViewCharacterDatabase.Validate")
-									net.WriteTable({"EditCharacterInformations", v[4], v[5]})
+									net.WriteTable({"EditCharacterInformations", data[4], data[5]})
 								net.SendToServer()
 							end,
 
-							FScript.Lang.ViewCharacterNotes, function()
+							FScript.Lang.EditCharacterNotes, function()
 								DermaFrame:Close()
 
 								net.Start("FScript.ViewCharacterDatabase.Validate")
-									net.WriteTable({"EditCharacterNotes", v[4], v[5]})
+									net.WriteTable({"EditCharacterNotes", data[4], data[5]})
 								net.SendToServer()
 							end,
 
@@ -314,7 +316,7 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 								DermaFrame:Close()
 
 								net.Start("FScript.ViewCharacterDatabase.Validate")
-									net.WriteTable({"DeleteCharacter", v[4], v[5]})
+									net.WriteTable({"DeleteCharacter", data[4], data[5]})
 								net.SendToServer()
 							end,
 
@@ -322,7 +324,7 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 								DermaFrame:Close()
 
 								net.Start("FScript.ViewCharacterDatabase.Validate")
-									net.WriteTable({"DeleteAllCharacters", v[4], v[5]})
+									net.WriteTable({"DeleteAllCharacters", data[4], data[5]})
 								net.SendToServer()
 							end,
 
