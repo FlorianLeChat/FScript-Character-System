@@ -60,6 +60,8 @@ end
 local function StringSearching(type, value, callback)
 	local _, Folders = file.Find("fscript_data/players/*", "DATA")
 	for _, v1 in ipairs(Folders) do
+		local result = {}
+
 		local Files = file.Find("fscript_data/players/" .. v1 .. "/*", "DATA")
 		for _, v2 in ipairs(Files) do
 			file.AsyncRead("fscript_data/players/" .. v1 .. "/" .. v2, "DATA", function(fileName, gamePath, status, data)
@@ -69,17 +71,17 @@ local function StringSearching(type, value, callback)
 					if string.find(string.lower(data[type]), string.lower(value)) then
 						v2 = string.Replace(v2, ".json", "")
 
-						callback({
-							{
-								data["Name"],
-								data["ID"],
-								#data["Description"] > 75 and string.sub(data["Description"], 0, 75) .. "..." or data["Description"],
-								v1,
-								v2,
-							}
-						})
+						result[#result + 1] = {
+							data["Name"],
+							data["ID"],
+							#data["Description"] > 75 and string.sub(data["Description"], 0, 75) .. "..." or data["Description"],
+							v1,
+							v2,
+						}
 
-						return
+						if #Files == #result then
+							callback(result)
+						end
 					end
 				end
 			end)
