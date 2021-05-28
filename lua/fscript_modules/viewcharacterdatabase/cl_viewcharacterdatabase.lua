@@ -87,13 +87,15 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 	SubTitle1:SizeToContents()
 	SubTitle1:SetPos(((DermaFrame:GetWide() / 2) - SubTitle1:GetWide()) / 2, 70)
 
-	local SubTitle1Pos = SubTitle1:GetPos()
-	local SubTitle1Wide = SubTitle1:GetWide()
-	local SeparatorPos = DermaFrame:GetWide() / 2
-	if SubTitle1Pos + SubTitle1Wide >= (SeparatorPos - 20) then
-		local _, Y = SubTitle1:GetSize()
-		SubTitle1:SetPos(20, 70)
-		SubTitle1:SetSize(SeparatorPos - 40, Y)
+	do
+		local SubTitle1Pos = SubTitle1:GetPos()
+		local SubTitle1Wide = SubTitle1:GetWide()
+		local SeparatorPos = DermaFrame:GetWide() / 2
+		if SubTitle1Pos + SubTitle1Wide >= (SeparatorPos - 20) then
+			local _, Y = SubTitle1:GetSize()
+			SubTitle1:SetPos(20, 70)
+			SubTitle1:SetSize(SeparatorPos - 40, Y)
+		end
 	end
 
 	local SteamIDSearch = vgui.Create("DTextEntry", DermaFrame)
@@ -148,7 +150,7 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 	NameSearch.OnTextChanged = function(self)
 		local Text = self:GetText()
 		if #Text > (FScript.Config.FirstnameMaxLenght + FScript.Config.SurnameMaxLenght) then
-			self:SetText(self.PrevText or string.sub(Text, 0, (FScript.Config.FirstnameMaxLenght + FScript.Config.SurnameMaxLenght)))
+			self:SetText(self.PrevText or string.sub(Text, 0, FScript.Config.FirstnameMaxLenght + FScript.Config.SurnameMaxLenght))
 		else
 			self.PrevText = Text
 		end
@@ -220,13 +222,15 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 	SubTitle2:SizeToContents()
 	SubTitle2:SetPos((DermaFrame:GetWide() / 2) + (((DermaFrame:GetWide() / 2) - SubTitle2:GetWide()) / 2), 70)
 
-	local SeparatorPos = DermaFrame:GetWide() / 2
-	local SubTitle2Pos = SubTitle2:GetPos() - SeparatorPos
-	local SubTitle2Wide = SubTitle2:GetWide()
-	if SubTitle2Pos + SubTitle2Wide >= (SeparatorPos - 20) then
-		local _, Y = SubTitle2:GetSize()
-		SubTitle2:SetPos(SeparatorPos + 20, 70)
-		SubTitle2:SetSize(SeparatorPos - 40, Y)
+	do
+		local SeparatorPos = DermaFrame:GetWide() / 2
+		local SubTitle2Pos = SubTitle2:GetPos() - SeparatorPos
+		local SubTitle2Wide = SubTitle2:GetWide()
+		if SubTitle2Pos + SubTitle2Wide >= (SeparatorPos - 20) then
+			local _, Y = SubTitle2:GetSize()
+			SubTitle2:SetPos(SeparatorPos + 20, 70)
+			SubTitle2:SetSize(SeparatorPos - 40, Y)
+		end
 	end
 
 	local PlayersList = vgui.Create("DListView", DermaFrame)
@@ -350,7 +354,7 @@ net.Receive("FScript.ViewCharacterDatabase.OpenMenu", function()
 	Column2:SetMinWidth(50)
 	Column2:SetMaxWidth(50)
 
-	local Column3 = SearchList:AddColumn(FScript.Lang.Description)
+	local _ = SearchList:AddColumn(FScript.Lang.Description)
 
 	local ConfirmButton = vgui.Create("DButton", DermaFrame)
 	ConfirmButton:SetText(FScript.Lang.ViewDatabaseValidation)

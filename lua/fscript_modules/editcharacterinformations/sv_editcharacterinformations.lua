@@ -58,7 +58,8 @@ net.Receive("FScript.EditCharacterInformations.Validate", function(lenght, ply)
 		Target = player.GetBySteamID64(ply.OfflineSearch[1])
 
 		if not Target then
-			local CharacterData = FScript.GetOfflineData(ply.OfflineSearch[1], ply.OfflineSearch[2])
+			CharacterData = FScript.GetOfflineData(ply.OfflineSearch[1], ply.OfflineSearch[2])
+
 			if not CharacterData then
 				FScript.SendNotification(ply, 1, FScript.Lang.InvalidData)
 				return

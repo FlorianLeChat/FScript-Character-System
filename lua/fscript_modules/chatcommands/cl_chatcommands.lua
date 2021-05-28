@@ -92,7 +92,7 @@ hook.Add("PlayerButtonDown", "FScript.ChatCommands", function(ply, button)
 	Column1:SetMinWidth(150)
 	Column1:SetMaxWidth(150)
 
-	local Column2 = DermaList:AddColumn(FScript.Lang.Description)
+	local _ = DermaList:AddColumn(FScript.Lang.Description)
 
 	for _, v in SortedPairs(FScript.GetChatCommands()) do
 		DermaList:AddLine(v["Name"], v["Desc"])

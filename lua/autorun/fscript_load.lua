@@ -23,31 +23,31 @@ if SERVER then
 	include("fscript_settings.lua")
 	include("fscript_translations.lua")
 
-	for _, folder in ipairs(folders) do
-		for _, file in ipairs(file.Find(rootFolder .. folder .. "/sh_*.lua", "LUA")) do
-			AddCSLuaFile(rootFolder .. folder .. "/" .. file)
-			include(rootFolder .. folder .. "/" .. file)
+	for _, Folder in ipairs(folders) do
+		for _, File in ipairs(file.Find(rootFolder .. Folder .. "/sh_*.lua", "LUA")) do
+			AddCSLuaFile(rootFolder .. Folder .. "/" .. File)
+			include(rootFolder .. Folder .. "/" .. File)
 		end
 
-		for _, file in ipairs(file.Find(rootFolder .. folder .. "/sv_*.lua", "LUA")) do
-			include(rootFolder .. folder .. "/" .. file)
+		for _, File in ipairs(file.Find(rootFolder .. Folder .. "/sv_*.lua", "LUA")) do
+			include(rootFolder .. Folder .. "/" .. File)
 		end
 
-		for _, file in ipairs(file.Find(rootFolder .. folder .. "/cl_*.lua", "LUA")) do
-			AddCSLuaFile(rootFolder .. folder .. "/" .. file)
+		for _, File in ipairs(file.Find(rootFolder .. Folder .. "/cl_*.lua", "LUA")) do
+			AddCSLuaFile(rootFolder .. Folder .. "/" .. File)
 		end
 	end
 else
 	include("fscript_settings.lua")
 	include("fscript_translations.lua")
 
-	for _, folder in ipairs(folders) do
-		for _, file in ipairs(file.Find(rootFolder .. folder .. "/sh_*.lua", "LUA")) do
-			include(rootFolder .. folder .. "/" .. file)
+	for _, Folder in ipairs(folders) do
+		for _, File in ipairs(file.Find(rootFolder .. Folder .. "/sh_*.lua", "LUA")) do
+			include(rootFolder .. Folder .. "/" .. File)
 		end
 
-		for _, file in ipairs(file.Find(rootFolder .. folder .. "/cl_*.lua", "LUA")) do
-			include(rootFolder .. folder .. "/" .. file)
+		for _, File in ipairs(file.Find(rootFolder .. Folder .. "/cl_*.lua", "LUA")) do
+			include(rootFolder .. Folder .. "/" .. File)
 		end
 	end
 end
