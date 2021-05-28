@@ -4,8 +4,6 @@ net.Receive("FScript.ChangeCharacter.OpenMenu", function(len)
 	local Characters = net.ReadTable()
 	local CurrentCharacter = 1
 
-	Characters = table.Reverse(Characters)
-
 	local DermaFrame = vgui.Create("DFrame")
 	DermaFrame:SetSize(FScript.ResponsiveWidthSize(700), FScript.ResponsiveHeightSize(600))
 	DermaFrame:SetTitle("")
