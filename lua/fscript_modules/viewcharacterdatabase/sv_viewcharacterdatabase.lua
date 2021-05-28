@@ -36,7 +36,7 @@ local function SteamIDSearching(value, callback)
 						i,
 					}
 
-					if #Characters == #result then
+					if math.min(#Characters, FScript.Config.MaxCharacters) == #result then
 						callback(result)
 					end
 				end
@@ -79,7 +79,7 @@ local function StringSearching(type, value, callback)
 							v2,
 						}
 
-						if #Files == #result then
+						if math.min(#Files, FScript.Config.MaxCharacters) == #result then
 							callback(result)
 						end
 					end
