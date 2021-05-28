@@ -58,12 +58,12 @@ function FScript.ChangeCharacter(ply, requester)
 
 	local CharactersData = {}
 
-	for _, v in ipairs(Characters) do
+	for k, v in ipairs(Characters) do
 		file.AsyncRead("fscript_data/players/" .. PlayerSteamID64 .. "/" .. v, "DATA", function(fileName, gamePath, status, data)
 			if status == FSASYNC_OK then
-				CharactersData[#CharactersData + 1] = util.JSONToTable(data)
+				CharactersData[k] = util.JSONToTable(data)
 
-				if #Characters == #CharactersData then
+				if #Characters == table.Count(CharactersData) then
 					net.Start("FScript.ChangeCharacter.OpenMenu")
 						net.WriteTable(CharactersData)
 						FScript.ValidateNetworkMessage(ply)
