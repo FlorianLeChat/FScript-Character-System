@@ -144,9 +144,8 @@ end
 	Return: Player founded (or nothing)
 --]]
 function FScript.FindPlayer(info)
-	if not DarkRP then
-		local Target = DarkRP.findPlayer(info)
-		return Target
+	if DarkRP then
+		return DarkRP.findPlayer(info)
 	else
 		info = string.lower(info)
 
