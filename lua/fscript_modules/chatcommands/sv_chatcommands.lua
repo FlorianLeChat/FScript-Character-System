@@ -5,7 +5,7 @@ hook.Add("PlayerSay", "FScript.ChatCommands", function(ply, text, teamChat)
 	end
 
 	for _, v in ipairs(FScript.ChatCommands) do
-		if string.StartWith(string.lower(text), v["Name"]) then
+		if string.StartsWith(string.lower(text), v["Name"]) then
 			text = string.Replace(text, v["Name"], "")
 			text = string.Trim(text)
 

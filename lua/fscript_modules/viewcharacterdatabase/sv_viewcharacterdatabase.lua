@@ -15,7 +15,7 @@ util.AddNetworkString("FScript.ViewCharacterDatabase.SendServerData")
 	- [5] = Character number
 --]]
 local function SteamIDSearching(value, callback)
-	if string.StartWith(value, "STEAM_") then
+	if string.StartsWith(value, "STEAM_") then
 		value = util.SteamIDTo64(value)
 	end
 
