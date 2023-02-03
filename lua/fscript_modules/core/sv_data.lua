@@ -41,15 +41,15 @@ function FScript.SaveCharacter(ply, requester)
 		CharacterData["JailTime"] = timer.TimeLeft(PlayerSteamID64 .. "jailtimer")
 	end
 
-	if itemstore then
+	if itemstore and ply:CanUseInventory() then
 		local GetPlayerInventory = ply.Inventory:GetItems()
 		local GetPlayerBank = ply.Bank:GetItems()
 
-		for k, v in pairs(GetPlayerInventory) do
+		for k, _ in pairs(GetPlayerInventory) do
 			GetPlayerInventory[k].Container = nil
 		end
 
-		for k, v in pairs(GetPlayerBank) do
+		for k, _ in pairs(GetPlayerBank) do
 			GetPlayerBank[k].Container = nil
 		end
 
@@ -179,7 +179,7 @@ function FScript.LoadCharacter(ply, characterNumber)
 				end
 			end
 
-			if itemstore then
+			if itemstore and ply:CanUseInventory() then
 				data["Inventory"] = util.JSONToTable(data["Inventory"])
 				data["Bank"] = util.JSONToTable(data["Bank"])
 

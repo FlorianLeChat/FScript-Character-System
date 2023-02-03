@@ -237,7 +237,7 @@ function FScript.ResetPlayer(ply)
 		ply:setDarkRPVar("money", 0)
 	end
 
-	if itemstore then
+	if itemstore and ply:CanUseInventory() then
 		for k, _ in ipairs(ply.Inventory:GetItems()) do
 			ply.Inventory:SetItem(k, nil)
 		end
